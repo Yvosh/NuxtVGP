@@ -5,6 +5,9 @@
 			Starter Template
 		</h2>
 		<h5>Nuxt 3 / Vuetify / Graphql / Pinia</h5>
+		<NuxtLink to="/launches">
+			<v-btn color="primary">Go to Launches Page</v-btn>
+		</NuxtLink>
 		<h3 class="my-5">
 			Example Pinia
 			<v-chip color="blue">useCounter</v-chip>
