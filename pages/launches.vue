@@ -1,4 +1,3 @@
-<!-- File: app/pages/launches.vue -->
 <template>
   <div>
     <h1 class="text-2xl font-bold mb-4">SpaceX Launches</h1>
@@ -44,14 +43,52 @@
 import { ref, computed, onMounted } from 'vue'
 import { format } from 'date-fns'
 
-const launches = ref([])
+// Sample launch data
+const launches = ref([
+  {
+    id: 1,
+    mission_name: 'FalconSat',
+    launch_date_utc: '2023-01-01T00:00:00Z',
+    launch_site: { site_name_long: 'Cape Canaveral Space Force Station' },
+    rocket: { rocket: { id: 'falcon1', rocket_name: 'Falcon 1' } },
+    details: 'First mission of Falcon 1.',
+  },
+  {
+    id: 2,
+    mission_name: 'DragonFly',
+    launch_date_utc: '2023-05-15T00:00:00Z',
+    launch_site: { site_name_long: 'Kennedy Space Center' },
+    rocket: { rocket: { id: 'falcon9', rocket_name: 'Falcon 9' } },
+    details: 'Mission to deliver supplies to the ISS.',
+  },
+  {
+    id: 3,
+    mission_name: 'Starlink 5',
+    launch_date_utc: '2023-08-20T00:00:00Z',
+    launch_site: { site_name_long: 'Vandenberg Space Force Base' },
+    rocket: { rocket: { id: 'falcon9', rocket_name: 'Falcon 9' } },
+    details: 'Deployment of Starlink satellites.',
+  },
+  {
+    id: 4,
+    mission_name: 'Mars Mission',
+    launch_date_utc: '2024-03-10T00:00:00Z',
+    launch_site: { site_name_long: 'Cape Canaveral Space Force Station' },
+    rocket: { rocket: { id: 'starship', rocket_name: 'Starship' } },
+    details: 'Mission to Mars.',
+  },
+  {
+    id: 5,
+    mission_name: 'Lunar Gateway',
+    launch_date_utc: '2024-11-11T00:00:00Z',
+    launch_site: { site_name_long: 'Kennedy Space Center' },
+    rocket: { rocket: { id: 'falconheavy', rocket_name: 'Falcon Heavy' } },
+    details: 'Building the Lunar Gateway.',
+  },
+]);
+
 const selectedYear = ref(null)
 const sortOrder = ref('desc')
-
-onMounted(async () => {
-  const res = await fetch('https://api.spacexdata.com/v3/launches')
-  launches.value = await res.json()
-})
 
 const years = computed(() => {
   const allYears = launches.value.map((l) => new Date(l.launch_date_utc).getFullYear())
