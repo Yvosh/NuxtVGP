@@ -41,13 +41,17 @@
 </template>
 
 <script setup lang="ts">
-import { useLaunches } from '~/composables/useLaunches'
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { format } from 'date-fns'
 
-const { launches } = await useLaunches()
+const launches = ref([])
 const selectedYear = ref(null)
 const sortOrder = ref('desc')
+
+onMounted(async () => {
+  const res = await fetch('https://api.spacexdata.com/v3/launches')
+  launches.value = await res.json()
+})
 
 const years = computed(() => {
   const allYears = launches.value.map((l) => new Date(l.launch_date_utc).getFullYear())
