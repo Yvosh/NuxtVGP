@@ -1,26 +1,44 @@
 import vuetify from 'vite-plugin-vuetify'
-// https://nuxt.com/docs/api/configuration/nuxt-config
 
 export default defineNuxtConfig({
-	future: { compatibilityVersion: 4 },
-	build: { transpile: ['vuetify'] },
-	imports: { dirs: ['./stores'] },
+  // Compatibility
+  compatibilityDate: '2024-11-11',
+  future: {
+    compatibilityVersion: 4,
+  },
 
-	apollo: {
-		autoImports: true,
-		proxyCookies: true,
-		clients: {
-			default: { httpEndpoint: 'https://spacex-production.up.railway.app/' },
-		},
-	},
+  // Build settings
+  build: {
+    transpile: ['vuetify'],
+  },
 
-	vite: {
-		optimizeDeps: {
-			include: ['graphql-tag'],
-		},
-		plugins: [vuetify()],
-	},
+  // Auto-import stores
+  imports: {
+    dirs: ['./stores'],
+  },
 
-	modules: ['@nuxtjs/apollo', ['@pinia/nuxt', { autoImports: ['defineStore', 'acceptHMRUpdate'] }]],
-	compatibilityDate: '2024-11-11',
+  // Apollo module setup
+  modules: [
+    '@nuxtjs/apollo',
+    ['@pinia/nuxt', { autoImports: ['defineStore', 'acceptHMRUpdate'] }],
+  ],
+
+  // Apollo client config
+  apollo: {
+    autoImports: true,
+    proxyCookies: true,
+    clients: {
+      default: {
+        httpEndpoint: 'https://spacex-production.up.railway.app/',
+      },
+    },
+  },
+
+  // Vite config with Vuetify and graphql-tag
+  vite: {
+    plugins: [vuetify()],
+    optimizeDeps: {
+      include: ['graphql-tag'],
+    },
+  },
 })
